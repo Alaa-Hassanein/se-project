@@ -6,8 +6,8 @@ module.exports = function(app) {
     return res.render('startpage');
   });
 
-  app.get('/login', function(req, res) {
-    return res.render('login');
+  app.get('/logins', function(req, res) {
+    return res.render('logins');
   });
 
 
