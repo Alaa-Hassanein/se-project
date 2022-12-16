@@ -25,9 +25,9 @@ const getUser = async function(req) {
 
 module.exports = function(app) {
   // Register HTTP endpoint to render /users page
-  app.get('/dashboard', async function(req, res) {
+  app.get('/homepage-s', async function(req, res) {
     const user = await getUser(req);
-    return res.render('dashboard', user);
+    return res.render('homepage-s', user);
   });
 
   // Register HTTP endpoint to render /users page
