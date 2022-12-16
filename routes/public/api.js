@@ -52,7 +52,9 @@ module.exports = function(app) {
     if (user.password !== password) {
       return res.status(401).send('Password does not match');
     }
-
+    if (user.roleId !== 1) {
+      return res.status(401).send('you are not student');
+    }
     // set the expiry time as 15 minutes after the current time
     const token = v4();
     const currentDateTime = new Date();
