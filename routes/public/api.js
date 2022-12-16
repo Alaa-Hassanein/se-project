@@ -8,13 +8,11 @@ module.exports = function(app) {
   app.post('/api/v1/user', async function(req, res) {
     // Check if user already exists in the system
     const userExists = await db.select('*').from('se_project.users').where('email', req.body.email);
-    if (!isEmpty(userExists)) 
-    {
+    if (!isEmpty(userExists)) {
       return res.status(400).send('user exists');
     }
     
-    const newUser = 
-    {
+    const newUser = {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       email: req.body.email,
@@ -32,9 +30,9 @@ module.exports = function(app) {
   });
 
   // Register HTTP endpoint to create new user
-  app.post('/api/v1/user/login', async function(req, res) {
+  app.post('/api/v1/user/logins', async function(req, res) {
     // get users credentials from the JSON body
-    const { email, password ,roleId} = req.body
+    const { email, password } = req.body
     if (!email) {
       // If the email is not present, return an HTTP unauthorized code
       return res.status(400).send('email is required');
