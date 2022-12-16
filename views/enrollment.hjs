@@ -35,7 +35,7 @@
           </tr>
           {{#enrollment}}
             <tr>
-              <td>{{courseid}}</td>
+              <td>{{courseId}}</td>
               <td>{{name}}</td>
               <td>{{major}}</td>
               <td>{{grade}}</td>

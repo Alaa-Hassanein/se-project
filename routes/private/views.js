@@ -50,7 +50,7 @@ module.exports = function(app) {
     .from('se_project.enrollments')
     .where('userId', user.id)
     .innerJoin('se_project.users', 'se_project.enrollments.userId', 'se_project.users.id')
-    .innerJoin('se_project.courses', 'se_project.enrollments.courseId', 'se_project.courses.id');
+    //.innerJoin('se_project.courses', 'se_project.enrollments.courseId', 'se_project.courses.id');
 
     return res.render('enrollment', { enrollment });
   });

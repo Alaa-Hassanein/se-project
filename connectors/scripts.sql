@@ -15,21 +15,21 @@ CREATE TABLE IF NOT EXISTS se_project.users
     "facultyId" integer NOT NULL,
     "roleId" integer NOT NULL,
     CONSTRAINT users_pkey PRIMARY KEY (id)
-)
+);
 
 CREATE TABLE IF NOT EXISTS se_project.roles
 (
     id SERIAL NOT NULL,
     "role" text NOT NULL,
     CONSTRAINT roles_pkey PRIMARY KEY (id)
-)
+);
 
 CREATE TABLE IF NOT EXISTS se_project.faculties
 (
     id SERIAL NOT NULL,
     "faculty" text NOT NULL,
     CONSTRAINT faculties_pkey PRIMARY KEY (id)
-)
+);
 
 CREATE TABLE IF NOT EXISTS se_project.sessions
 (
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS se_project.sessions
     "token" text NOT NULL,
     "expiresAt" timestamp NOT NULL,
     CONSTRAINT sessions_pkey PRIMARY KEY (id)
-)
+);
 
 CREATE TABLE IF NOT EXISTS se_project.courses
 (
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS se_project.courses
     "code" text NOT NULL,
     "facultyId" integer NOT NULL,
     CONSTRAINT courses_pkey PRIMARY KEY (id)
-)
+);
 
 CREATE TABLE IF NOT EXISTS se_project.enrollments
 (
@@ -57,4 +57,4 @@ CREATE TABLE IF NOT EXISTS se_project.enrollments
     "grade" decimal NOT NULL,
     "active" boolean NOT NULL,
     CONSTRAINT enrollments_pkey PRIMARY KEY (id)
-)
+);
