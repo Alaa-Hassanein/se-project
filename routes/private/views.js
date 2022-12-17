@@ -36,6 +36,16 @@ module.exports = function(app) {
       return res.render('homepage-a', user);
     }
   });
+  app.get('/homepage-s', async function(req, res) {
+    const user = await getUser(req);
+    return res.render('homepage-s', user);
+  });
+
+  app.get('/homepage-a', async function(req, res) {
+    const user = await getUser(req);
+    return res.render('homepage-a', user);
+  });
+
 
   // Register HTTP endpoint to render /users page
   app.get('/users', async function(req, res) {
