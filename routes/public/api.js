@@ -3,7 +3,32 @@ const { v4 } = require('uuid');
 const db = require('../../connectors/db');
 const roles = require('../../constants/roles');
 
+
+
+
+
 module.exports = function(app) {
+
+  const getUser = async function(req) {
+    const sessionToken = getSessionToken(req);
+    if (!sessionToken) {
+      return res.status(301).redirect('/');
+    }
+  
+    const user = await db.select('*')
+      .from('se_project.sessions')
+      .where('token', sessionToken)
+      .innerJoin('se_project.users', 'se_project.sessions.userId', 'se_project.users.id')
+      .innerJoin('se_project.roles', 'se_project.users.roleId', 'se_project.roles.id')
+      .innerJoin('se_project.faculties', 'se_project.users.facultyId', 'se_project.faculties.id')
+      .first();
+    
+    console.log('user =>', user)
+    user.isStudent = user.roleId === roles.student;
+    user.isAdmin = user.roleId === roles.admin;
+  
+    return user;  
+  }
   // Register HTTP endpoint to create new user
   app.post('/api/v1/user', async function(req, res) {
     // Check if user already exists in the system
@@ -30,7 +55,7 @@ module.exports = function(app) {
   });
 
   // Register HTTP endpoint to create new user
-  app.post('/api/v1/user/logins', async function(req, res) {
+  app.post('/api/v1/user/login', async function(req, res) {
     // get users credentials from the JSON body
     const { email, password } = req.body
     if (!email) {
@@ -52,9 +77,7 @@ module.exports = function(app) {
     if (user.password !== password) {
       return res.status(401).send('Password does not match');
     }
-    if (user.roleId !== 1) {
-      return res.status(401).send('you are not student');
-    }
+  
     // set the expiry time as 15 minutes after the current time
     const token = v4();
     const currentDateTime = new Date();
@@ -77,52 +100,7 @@ module.exports = function(app) {
     }
   });
 
-  app.post('/api/v1/user/logina', async function(req, res) {
-    // get users credentials from the JSON body
-    const { email, password } = req.body
-    if (!email) {
-      // If the email is not present, return an HTTP unauthorized code
-      return res.status(400).send('email is required');
-    }
-    if (!password) {
-      // If the password is not present, return an HTTP unauthorized code
-      return res.status(400).send('Password is required');
-    }
-
-    // validate the provided password against the password in the database
-    // if invalid, send an unauthorized code
-    const user = await db.select('*').from('se_project.users').where('email', email).first();
-    if (isEmpty(user)) {
-      return res.status(400).send('user does not exist');
-    }
-
-    if (user.password !== password) {
-      return res.status(401).send('Password does not match');
-    }
-    if (user.roleId !== 2) {
-      return res.status(401).send('you are not admin');
-    }
-    // set the expiry time as 15 minutes after the current time
-    const token = v4();
-    const currentDateTime = new Date();
-    const expiresAt = new Date(+currentDateTime + 18000000); // expire in 3 minutes
-
-    // create a session containing information about the user and expiry time
-    const session = {
-      userId: user.id,
-      token,
-      expiresAt,
-    };
-    try {
-      await db('se_project.sessions').insert(session);
-      // In the response, set a cookie on the client with the name "session_cookie"
-      // and the value as the UUID we generated. We also set the expiration time.
-      return res.cookie("session_token", token, { expires: expiresAt }).status(200).send('login successful');
-    } catch (e) {
-      console.log(e.message);
-      return res.status(400).send('Could not register user');
-    }
-  });
+  
 
 };
 

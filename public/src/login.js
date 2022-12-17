@@ -1,4 +1,5 @@
 $(document).ready(function(){
+  console.log('hello');
   $("#submit").click(function() {
     const email = $('#email').val();
     const password = $('#password').val();
@@ -10,7 +11,7 @@ $(document).ready(function(){
 
     $.ajax({
       type: "POST",
-      url: '/api/v1/user/logins',
+      url: '/api/v1/user/login',
       data,
       success: function(serverResponse) {
         if(serverResponse) {
@@ -24,4 +25,4 @@ $(document).ready(function(){
       }
     });
   });
-});
+});  

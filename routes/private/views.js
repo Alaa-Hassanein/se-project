@@ -25,9 +25,16 @@ const getUser = async function(req) {
 
 module.exports = function(app) {
   // Register HTTP endpoint to render /users page
-  app.get('/homepage-s', async function(req, res) {
+  app.get('/dashboard', async function(req, res) {
     const user = await getUser(req);
-    return res.render('homepage-s', user);
+    if (user.roleId==1)
+    {
+      return res.render('homepage-s', user);
+    }
+    if(user.roleId==2)
+    {
+      return res.render('homepage-a', user);
+    }
   });
 
   // Register HTTP endpoint to render /users page
