@@ -100,6 +100,23 @@ module.exports = function(app) {
     }
   });
 
+  app.post('/api/v1/faculties/transfer', async function(req, res) {
+    
+    
+    const request = {
+      userId: user.userId,
+      newFacultyId: req.body.facultyId,
+      currentFacultyId: user.facultyId,
+      status:req.body.status,
+    };
+    try {
+      const requ = await db('se_project.Transfer_requests').insert(request);
+      return res.status(200).json(requ);
+    } catch (e) {
+      console.log(e.message);
+      return res.status(400).send('Could not send  request');
+    }
+  });
   
 
 };

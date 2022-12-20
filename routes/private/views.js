@@ -67,9 +67,19 @@ module.exports = function(app) {
     .from('se_project.enrollments')
     .where('userId', user.id)
     .innerJoin('se_project.users', 'se_project.enrollments.userId', 'se_project.users.id')
-    //.innerJoin('se_project.courses', 'se_project.enrollments.courseId', 'se_project.courses.id');
+    .innerJoin('se_project.courses', 'se_project.enrollments.courseId', 'se_project.courses.id');
 
     return res.render('enrollment', { enrollment });
+  });
+
+  app.get('/faculty-req', async function(req, res) {
+    const faculties = await db.select('*').from('se_project.faculties');
+    return res.render('faculty-req', { faculties });
+ 
+  });
+
+  app.get('/addcourse', async function(req, res) {
+    return res.render('addcourse');
   });
 
   // Register HTTP endpoint to render /users/add page

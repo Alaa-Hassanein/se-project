@@ -17,6 +17,7 @@
        
         
         <li class="active"><a href="/enrollment">Enrollment</a></li>
+          <li><a href="/faculty-req">Change faculty</a></li>
         <li><a href="/">Logout</a></li>            
       </ul>
   </nav>
@@ -36,7 +37,7 @@
           {{#enrollment}}
             <tr>
               <td>{{courseId}}</td>
-              <td>{{name}}</td>
+              
               <td>{{major}}</td>
               <td>{{grade}}</td>
               <td>{{active}}</td>
