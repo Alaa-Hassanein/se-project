@@ -7,16 +7,15 @@ $(document).ready(function(){
       const facultyId = $("#facultyDropdown").attr('index');
 
       const data = {
-        firstName,
-        lastName,
-        email,
-        password,
+        id,
+        course,
+        code,
         facultyId,
       };
 
     /*  $.ajax({
         type: "POST",
-        url: '/api/v1/user',
+        url: '/api/v1/addcoure',
         data,
         success: function(serverResponse) {
           if(serverResponse) {

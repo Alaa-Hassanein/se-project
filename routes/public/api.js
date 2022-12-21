@@ -2,7 +2,7 @@ const { isEmpty } = require('lodash');
 const { v4 } = require('uuid');
 const db = require('../../connectors/db');
 const roles = require('../../constants/roles');
-
+const {getSessionToken} = require
 
 
 
@@ -29,6 +29,7 @@ module.exports = function(app) {
   
     return user;  
   }
+
   // Register HTTP endpoint to create new user
   app.post('/api/v1/user', async function(req, res) {
     // Check if user already exists in the system
@@ -100,23 +101,7 @@ module.exports = function(app) {
     }
   });
 
-  app.post('/api/v1/faculties/transfer', async function(req, res) {
-    
-    
-    const request = {
-      userId: user.userId,
-      newFacultyId: req.body.facultyId,
-      currentFacultyId: user.facultyId,
-      status:req.body.status,
-    };
-    try {
-      const requ = await db('se_project.Transfer_requests').insert(request);
-      return res.status(200).json(requ);
-    } catch (e) {
-      console.log(e.message);
-      return res.status(400).send('Could not send  request');
-    }
-  });
+
   
 
 };
