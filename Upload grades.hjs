@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <head>
+      <link rel='stylesheet' href='/styles/bootstrap.min.css' />
+      <link rel='stylesheet' href='/styles/style.css' />
+      <script src="/js/jquery-2.2.0.min.js" type="text/javascript"></script>
+      <script src="/js/bootstrap.min.js" type="text/javascript"></script>
+    </head>
+  </head>
+  <body>
+      <script src="/src/upload_grades.js" type="text/javascript" >
+    
+       </script>    
+    <div>
+      <nav class="navbar navbar-inverse" style="padding-left:130px;">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="/upload_grade">Home</a></li>
+          </ul>
+      </nav>
+    </div>
+
+    <div class="center">
+      <h1>Upload Grades</h1>
+    </div>
+    <div style="padding-left: 300px">
+    <form class="form-horizontal" style="width: 58%;">
+      <div class="form-group">
+          <label for="course id" class="col-sm-2 control-label">Course id</label>
+          <div class="col-sm-10">
+              <input type="integer" class="form-control" id="course_id" name="course_id" placeholder="Course id" value="">
+          </div>
+          </div>
+           <div class="form-group">
+          <label for="Student id" class="col-sm-2 control-label">Student id</label>
+          <div class="col-sm-10">
+              <input type="Integer" class="form-control" id="Sudent id" name="student id" placeholder="Student id" value="">
+          </div>
+      </div>
+      <div class="form-group">
+          <label for="Grade" class="col-sm-2 control-label">Grade</label>
+          <div class="col-sm-10">
+              <input type="real" class="form-control" id="Grade" name="Grade" placeholder="Grade" value="">
+          </div>
+      </div>
+    
+      </div>
+           <div class="form-group">
+          <div class=" col-sm-offset-5">
+              <input id="submit" name="submit" type="button" value="submit" class="btn btn-primary">
+              
+          </div>
+      </div>
+  </form>
+    </div>
+  </body>
+</html>
