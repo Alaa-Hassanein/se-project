@@ -43,6 +43,7 @@
           <table class="table">
         <thead>
           <tr>
+            <th scope="col1" >user ID</th>
             <th scope="col1" >request ID</th>
             <th scope="col2">current Faculty ID</th>
             <th scope="col3">new Faculty Id</th>
@@ -53,6 +54,7 @@
           {{#request}}
 
             <tr>
+              <td>{{userId}}</td>
               <td>{{id}}</td>
               <td>{{currentFacultyId}}</td>
               <td>{{newFacultyId}}</td>

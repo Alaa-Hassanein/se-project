@@ -43,6 +43,16 @@ module.exports = function(app) {
       currentFacultyId: user.facultyId,
       status:req.body.status,
     };
+     const e =req.body.facultyId;
+     if (e==0) 
+     {
+      return res.status(400).send('you must chose faculty');
+     }
+      
+     
+else
+{
+
 
     try {
       const requ = await db('se_project.Transfer_requests').insert(request);
@@ -51,6 +61,8 @@ module.exports = function(app) {
       console.log(e.message);
       return res.status(400).send('Could not send  request');
     }
+  
+  }
   });
 
 

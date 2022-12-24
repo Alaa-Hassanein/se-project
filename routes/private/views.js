@@ -106,7 +106,7 @@ module.exports = function(app) {
   app.get('/manage-requests', async function(req, res) {
     const user = await getUser(req);
 
-    const request = await db.select('*').from('se_project.Transfer_requests');
+    const request = await db.select('*').from('se_project.Transfer_requests').where('status','pending');
     return res.render('manage-requests',{request});
   });
 

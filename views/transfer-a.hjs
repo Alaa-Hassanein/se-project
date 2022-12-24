@@ -36,7 +36,7 @@
       
      
       <div class="form-group">
-          <label for="faculty" class="col-sm-2 control-label">Faculty</label>
+          <label for="faculty" class="col-sm-2 control-label"></label>
           
           <table class="table">
         <thead>
