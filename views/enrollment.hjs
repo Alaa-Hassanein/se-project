@@ -17,7 +17,7 @@
        
         
         <li class="active"><a href="/enrollment">Enrollment</a></li>
-          <li><a href="/faculty-req">Change faculty</a></li>
+          <li><a href="/transfer">Transfer</a></li>
         <li><a href="/">Logout</a></li>            
       </ul>
   </nav>
@@ -28,8 +28,6 @@
           <tr>
             <th scope="col">Course Code</th>
             <th scope="col">Course Name</th>
-            
-            
             <th scope="col">Major</th>
             <th scope="col">Grade</th>
             <th scope="col">status</th>

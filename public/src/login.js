@@ -1,5 +1,4 @@
 $(document).ready(function(){
-  console.log('hello');
   $("#submit").click(function() {
     const email = $('#email').val();
     const password = $('#password').val();

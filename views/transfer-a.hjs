@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -15,7 +17,7 @@
           <ul class="nav navbar-nav">
               <li><a href="/homepage-s">Home</a></li>
             <li><a href="/enrollment">Enrollment</a></li>
-            <li class="active"><a href="/faculty-req">Change faculty</a></li>
+            <li class="active"><a href="/transfer">Transfer</a></li>
 
             <li><a href="/">Logout</a></li>
           </ul>
@@ -35,7 +37,31 @@
      
       <div class="form-group">
           <label for="faculty" class="col-sm-2 control-label">Faculty</label>
-          <div class="col-sm-10">
+          
+          <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">request ID</th>
+            <th scope="col">current Faculty ID</th>
+            <th scope="col">new Faculty Id</th>
+            <th scope="col">status</th>
+          </tr>
+          {{#request}}
+            <tr>
+              <td>{{id}}</td>
+              
+              <td>{{currentFacultyId}}</td>
+              <td>{{newFacultyId}}</td>
+              <td>{{status}}</td>
+
+            </tr>
+          {{/request}}
+        </thead>
+      </table>
+        
+      
+          <div class="col-sm-10" >
+            
             <div class="btn-group">
               <button index=0 id='facultyDropdown' class="btn" style="height: 70px ; width :210px">Faculties
               </button>

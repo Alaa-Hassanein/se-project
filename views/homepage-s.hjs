@@ -22,7 +22,7 @@
           <ul class="nav navbar-nav">
             <li class="active"><a href="/homepage-s">Home</a></li>
             <li><a href="/enrollment">Enrollment</a></li>
-            <li><a href="/faculty-req">Change faculty</a></li>
+            <li><a href="/transfer">Transfer</a></li>
 
             <li><a href="/">Logout</a></li>
           </ul>

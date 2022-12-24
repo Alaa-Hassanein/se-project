@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Users</title>
+    <link rel='stylesheet' href='/styles/bootstrap.min.css' />
+    <link rel='stylesheet' href='/styles/style.css' />
+    <script src="/js/jquery-2.2.0.min.js" type="text/javascript"></script>
+    <script src="/js/bootstrap.min.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <script src="/src/manage-requests.js" type="text/javascript">
+    {{!-- function myFunction() {
+  var x = document.getElementById("reject").name;} --}}
+    </script>
+    <div>
+    <div>
+    <nav class="navbar navbar-inverse" style="padding-left:130px;">
+      <ul class="nav navbar-nav">
+        <li><a href="/dashboard">Home</a></li>
+        <li><a href="/users/add">Add Users</a></li>
+        <li><a href="/users">Users</a></li>
+        <li class="active"><a href="/manage-requests">manage requests</a></li>
+        <li><a href="/courses">Courses</a></li>
+        <li><a href="/">Logout</a></li>  
+     </ul>
+      </nav>
+    </div>
+
+    <div class="center">
+      <h1>faculty Change request</h1>
+    </div>
+    <div style="padding-left: 300px">
+    <form class="form-horizontal" style="width: 80%;">
+      <div class="form-group">
+          
+      </div>
+      
+      
+     
+      <div class="form-group">
+          <label for="faculty" class="col-sm-2 control-label"></label>
+          
+          <table class="table">
+        <thead>
+          <tr>
+            <th scope="col1" >request ID</th>
+            <th scope="col2">current Faculty ID</th>
+            <th scope="col3">new Faculty Id</th>
+            <th scope="col4">status</th>
+	    	<th scope="col5">approve</th>
+	    	<th scope="col6">reject</th>
+          </tr>
+          {{#request}}
+
+            <tr>
+              <td>{{id}}</td>
+              <td>{{currentFacultyId}}</td>
+              <td>{{newFacultyId}}</td>
+              <td>{{status}}</td>
+              <td><button id={{id}} name="approve" type="buttom" value="{{id}}"  class="btn btn-primary approve" >approve</button></td>
+              <td><button id={{id}} name="reject" type="buttom" value="{{id}}"  class="btn btn-primary reject"  >reject</button></td>
+            </tr>
+          {{/request}}
+        </thead>
+      </table>
+     
+      
+         
+      </div>
+      
+  </form>
+    </div>
+  </body>
+</html>

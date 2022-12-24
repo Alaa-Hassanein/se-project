@@ -14,6 +14,7 @@ const getUser = async function(req) {
     .innerJoin('se_project.users', 'se_project.sessions.userId', 'se_project.users.id')
     .innerJoin('se_project.roles', 'se_project.users.roleId', 'se_project.roles.id')
     .innerJoin('se_project.faculties', 'se_project.users.facultyId', 'se_project.faculties.id')
+
     .first();
   
   console.log('user =>', user)
@@ -65,16 +66,31 @@ module.exports = function(app) {
     const user = await getUser(req);
     const enrollment = await db.select('*')
     .from('se_project.enrollments')
-    .where('userId', user.id)
+    .where('userId', user.userId)
     .innerJoin('se_project.users', 'se_project.enrollments.userId', 'se_project.users.id')
     .innerJoin('se_project.courses', 'se_project.enrollments.courseId', 'se_project.courses.id');
 
     return res.render('enrollment', { enrollment });
   });
 
-  app.get('/faculty-req', async function(req, res) {
+  app.get('/transfer', async function(req, res) {
+    const user = await getUser(req);
     const faculties = await db.select('*').from('se_project.faculties');
-    return res.render('faculty-req', { faculties });
+    const request = await db.select('*').from('se_project.Transfer_requests').where('userId',user.userId);
+    const requestExists = await db.select('*').from('se_project.Transfer_requests').where('userId',user.userId).andWhere('status','pending');
+    console.log(requestExists);
+    
+    if(requestExists.length !=0)
+    {
+    console.log('alaa')
+    return res.render('transfer-b',{faculties , request});
+    
+    }
+    else
+    {
+      console.log('her')
+      return res.render('transfer-a',{faculties , request});
+    }
  
   });
 
@@ -86,4 +102,12 @@ module.exports = function(app) {
   app.get('/users/add', async function(req, res) {
     return res.render('add-user');
   });
+
+  app.get('/manage-requests', async function(req, res) {
+    const user = await getUser(req);
+
+    const request = await db.select('*').from('se_project.Transfer_requests');
+    return res.render('manage-requests',{request});
+  });
+
 };

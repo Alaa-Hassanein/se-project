@@ -48,6 +48,7 @@ module.exports = function(app) {
     };
     try {
       const user = await db('se_project.users').insert(newUser).returning('*');
+      
       return res.status(200).json(user);
     } catch (e) {
       console.log(e.message);
@@ -102,7 +103,46 @@ module.exports = function(app) {
   });
 
 
+  app.post('/api/v1/transfers/:transferId', async function(req, res) {
+    console.log('ql')
+  const id=req.params.transferId;
+  const response =req.body.response;
+ if (response=="reject"){
+   
+   try 
+   {
+
   
 
-};
+     console.log(req.params.transferId);
+     const updat = await db('se_project.Transfer_requests').where("id",id).update({status:response});
+     //const updat =await knex("se_project.Transfer_requests").update('status','rejected').where('id', req.params.id);
+     return res.status(200).json(updat);
+   } 
+   catch (e)
+  {
+   console.log(req.params.transferId);
+     console.log(e.message);
+     return res.status(400).send('Could not assend  request');
+   }
+  }
+  if(response=="approve")
+  {
+ try 
+    {
+      console.log(req.params.transferId);
+      //const updat =await knex("se_project.Transfer_requests").update('status','approved').where('id', req.params.id);
+      const updat = await db('se_project.Transfer_requests').where({id}).update({status:response});
+      return res.status(200).json(updat);
+    } 
+    catch (e)
+   {
+    console.log(req.params.transferId);
+      console.log(e.message);
+      return res.status(400).send('Could not assend  request');
+    }
+  }
+ 
+ });
 
+};

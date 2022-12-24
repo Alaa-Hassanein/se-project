@@ -16,7 +16,7 @@
         <li><a href="/dashboard">Home</a></li>
             <li><a href="/users/add">Add Users</a></li>
         <li><a href="/users">Users</a></li>
-    
+        <li><a href="/manage-requests">manage requests</a></li>
         <li class="active"><a href="/courses">Courses</a></li>
         <li><a href="/">Logout</a></li>       
       </ul>

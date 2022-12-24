@@ -43,7 +43,7 @@ module.exports = function(app) {
       currentFacultyId: user.facultyId,
       status:req.body.status,
     };
-    console.log('alaa',request);
+
     try {
       const requ = await db('se_project.Transfer_requests').insert(request);
       return res.status(200).json(requ);
@@ -54,5 +54,46 @@ module.exports = function(app) {
   });
 
 
+  app.post('/api/v1/transfers/:transferId', async function(req, res) {
+    console.log('ql')
+  const {id}=req.params;
+  
+ if (req.body.transferstatus==1){
+   
+   try 
+   {
+
+  
+
+     console.log(req.params.transferId);
+     const updat = await db('se_project.Transfer_requests').where( {id}).update({status:'approved'},['id','status']);
+     //const updat =await knex("se_project.Transfer_requests").update('status','rejected').where('id', req.params.id);
+     return res.status(200).json(updat);
+   } 
+   catch (e)
+  {
+   console.log(req.params.transferId);
+     console.log(e.message);
+     return res.status(400).send('Could not assend  request');
+   }
+  }
+  else
+  {
+ try 
+    {
+      console.log(req.params.transferId);
+      //const updat =await knex("se_project.Transfer_requests").update('status','approved').where('id', req.params.id);
+      const updat = await db('se_project.Transfer_requests').where({id}).update({status:'approved'});
+      return res.status(200).json(updat);
+    } 
+    catch (e)
+   {
+    console.log(req.params.transferId);
+      console.log(e.message);
+      return res.status(400).send('Could not assend  request');
+    }
+  }
+ 
+ });
 
 };
