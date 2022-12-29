@@ -46,9 +46,22 @@ module.exports = function(app) {
       facultyId: req.body.facultyId,
       roleId: roles.student,
     };
+  
+  
     try {
+      var enroll;  
+      const coursesid=await db.select('id').from('se_project.courses');
       const user = await db('se_project.users').insert(newUser).returning('*');
+    
+      for(let i = 0; i< coursesid.length;i++)
+    {
       
+      const userId= user[0];
+      console.log(userId);
+      console.log(userId.id);
+      let courseObj= coursesid[i]
+        enroll =await  db('se_project.enrollments').insert( { userId: userId.id , grade: 0 ,  courseid: courseObj.id , active:true} );
+    }
       return res.status(200).json(user);
     } catch (e) {
       console.log(e.message);
@@ -104,7 +117,7 @@ module.exports = function(app) {
 
 
   app.post('/api/v1/transfers/:transferId', async function(req, res) {
-    console.log('ql')
+    
   const id=req.params.transferId;
   const response =req.body.response;
  if (response=="reject"){
@@ -144,5 +157,30 @@ module.exports = function(app) {
   }
  
  });
+
+
+ app.post('/api/v1/user-enroll', async function(req, res) {
+  
+ // var en;
+  try {
+    var enroll;  
+   const coursesid=await db.select('id').from('se_project.courses');
+    for(let i = 0; i< coursesid.length;i++)
+    {
+      let courseObj= coursesid[i]
+        enroll =await  db('se_project.enrollments').insert( { userId: 2 , grade: 0 ,  courseid: courseObj.id , active:true} ).returning('*');
+    }
+    
+   
+    return res.status(200).json(enroll);
+  } catch (e) {
+    console.log(e.message);
+    return res.status(400).send('Could not enroll user');
+  }
+});
+
+
+
+
 
 };

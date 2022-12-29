@@ -34,9 +34,9 @@
           </tr>
           {{#enrollment}}
             <tr>
-              <td>{{courseId}}</td>
-              
-              <td>{{major}}</td>
+              <td>{{Code}}</td>
+              <td>{{Course}}</td>
+              <td>{{faculty}}</td>
               <td>{{grade}}</td>
               <td>{{active}}</td>
 

@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS se_project.enrollments
 (
     id SERIAL NOT NULL,
     "userId" integer NOT NULL,
-    "courseId" integer NOT NULL,
+    "courseid" integer NOT NULL,
     "grade" decimal NOT NULL,
     "active" boolean NOT NULL,
     CONSTRAINT enrollments_pkey PRIMARY KEY (id)

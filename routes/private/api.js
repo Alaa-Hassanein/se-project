@@ -67,45 +67,108 @@ else
 
 
   app.post('/api/v1/transfers/:transferId', async function(req, res) {
-    console.log('ql')
-  const {id}=req.params;
+    
+    const id=req.params.transferId;
+    const response =req.body.response;
+   if (response=="reject"){
+     
+     try 
+     {
   
- if (req.body.transferstatus==1){
-   
-   try 
-   {
-
+    
   
-
-     console.log(req.params.transferId);
-     const updat = await db('se_project.Transfer_requests').where( {id}).update({status:'approved'},['id','status']);
-     //const updat =await knex("se_project.Transfer_requests").update('status','rejected').where('id', req.params.id);
-     return res.status(200).json(updat);
-   } 
-   catch (e)
-  {
-   console.log(req.params.transferId);
-     console.log(e.message);
-     return res.status(400).send('Could not assend  request');
-   }
-  }
-  else
-  {
- try 
+       console.log(req.params.transferId);
+       const updat = await db('se_project.Transfer_requests').where("id",id).update({status:response});
+       //const updat =await knex("se_project.Transfer_requests").update('status','rejected').where('id', req.params.id);
+       return res.status(200).json(updat);
+     } 
+     catch (e)
     {
-      console.log(req.params.transferId);
-      //const updat =await knex("se_project.Transfer_requests").update('status','approved').where('id', req.params.id);
-      const updat = await db('se_project.Transfer_requests').where({id}).update({status:'approved'});
-      return res.status(200).json(updat);
-    } 
-    catch (e)
-   {
-    console.log(req.params.transferId);
-      console.log(e.message);
-      return res.status(400).send('Could not assend  request');
+     console.log(req.params.transferId);
+       console.log(e.message);
+       return res.status(400).send('Could not assend  request');
+     }
     }
-  }
- 
- });
+    if(response=="approve")
+    {
+   try 
+      {
+        console.log(req.params.transferId);
+        //const updat =await knex("se_project.Transfer_requests").update('status','approved').where('id', req.params.id);
+        const updat = await db('se_project.Transfer_requests').where({id}).update({status:response});
+        return res.status(200).json(updat);
+      } 
+      catch (e)
+     {
+      console.log(req.params.transferId);
+        console.log(e.message);
+        return res.status(400).send('Could not assend  request');
+      }
+    }
+   
+   });
 
-};
+   
+   app.post('/api/v1/transfers/:transferId', async function(req, res) {
+    
+    const id=req.params.transferId;
+    const response =req.body.response;
+   if (response=="reject"){
+     
+     try 
+     {
+  
+    
+  
+       console.log(req.params.transferId);
+       const updat = await db('se_project.Transfer_requests').where("id",id).update({status:response});
+       //const updat =await knex("se_project.Transfer_requests").update('status','rejected').where('id', req.params.id);
+       return res.status(200).json(updat);
+     } 
+     catch (e)
+    {
+     console.log(req.params.transferId);
+       console.log(e.message);
+       return res.status(400).send('Could not assend  request');
+     }
+    }
+    if(response=="approve")
+    {
+   try 
+      {
+        console.log(req.params.transferId);
+        //const updat =await knex("se_project.Transfer_requests").update('status','approved').where('id', req.params.id);
+        const updat = await db('se_project.Transfer_requests').where({id}).update({status:response});
+        return res.status(200).json(updat);
+      } 
+      catch (e)
+     {
+      console.log(req.params.transferId);
+        console.log(e.message);
+        return res.status(400).send('Could not assend  request');
+      }
+    }
+   
+   });
+  
+  
+   app.get('/api/v1/faculties/:facultyId', async function(req, res) {
+    
+    try {
+      const faculty=req.params.facultyId;
+      console.log(faculty);
+      
+        const courses = await db.select('*').from('se_project.courses').where('id',faculty);
+        const facultyId =await db.select('*').from('se_project.faculties');
+        console.log(faculty);
+      return res.status(200).send('Cold not enroll user');
+    } catch (e) {
+      console.log(e.message);
+      return res.status(400).send('Could not enroll user');
+    }
+  });
+  
+
+
+
+  };

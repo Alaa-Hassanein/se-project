@@ -55,11 +55,15 @@ module.exports = function(app) {
   });
 
   // Register HTTP endpoint to render /courses page
-  app.get('/courses', async function(req, res) {
-    const user = await getUser(req);
-    const courses = await db.select('*').from('se_project.courses');
-    return res.render('courses', { ...user, courses });
+  app.get('/manage/courses/', async function(req, res) {
+    
+      const facultyId =await db.select('*').from('se_project.faculties')
+      return res.render('courses-a1', { facultyId });
+    
   });
+
+
+ 
 
   // Register HTTP endpoint to render /enrollment page
   app.get('/enrollment', async function(req, res) {
@@ -78,17 +82,18 @@ module.exports = function(app) {
     const faculties = await db.select('*').from('se_project.faculties');
     const request = await db.select('*').from('se_project.Transfer_requests').where('userId',user.userId);
     const requestExists = await db.select('*').from('se_project.Transfer_requests').where('userId',user.userId).andWhere('status','pending');
+    console.log('alaa');
     console.log(requestExists);
-    
+    console.log('alaa');
     if(requestExists.length !=0)
     {
-    console.log('alaa')
+    
     return res.render('transfer-b',{faculties , request});
     
     }
     else
     {
-      console.log('her')
+      
       return res.render('transfer-a',{faculties , request});
     }
  
@@ -105,7 +110,7 @@ module.exports = function(app) {
 
   app.get('/manage-requests', async function(req, res) {
     const user = await getUser(req);
-
+    
     const request = await db.select('*').from('se_project.Transfer_requests').where('status','pending');
     return res.render('manage-requests',{request});
   });

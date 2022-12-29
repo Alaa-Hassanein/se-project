@@ -27,8 +27,8 @@ $(document).ready(function(){
         data,
         success: function(serverResponse) {
           if(serverResponse) {
-            alert('Successfully Registered User');
-            location.href = '/logins';
+            location.href = '/login';
+
           }
         },
         error: function(errorResponse) {
