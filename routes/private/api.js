@@ -35,7 +35,7 @@ module.exports = function(app) {
 
 
   app.post('/api/v1/faculties/transfer', async function(req, res) {
-    console.log('here');
+   
     const user = await getUser(req);
     const request = {
       userId: user.userId,
@@ -152,23 +152,68 @@ else
    });
   
   
-   app.get('/api/v1/faculties/:facultyId', async function(req, res) {
+   app.post('/api/v1/faculties/:facultyId', async function(req, res) {
     
-    try {
+    
       const faculty=req.params.facultyId;
-      console.log(faculty);
+     
       
-        const courses = await db.select('*').from('se_project.courses').where('id',faculty);
-        const facultyId =await db.select('*').from('se_project.faculties');
-        console.log(faculty);
-      return res.status(200).send('Cold not enroll user');
-    } catch (e) {
-      console.log(e.message);
-      return res.status(400).send('Could not enroll user');
-    }
+        const courses = await db.select('*').from('se_project.courses').where('facultyId',faculty);
+       
+        
+      return res.send(courses);
+   
   });
-  
+  app.delete('/api/v1/courses/:courseId', async function(req, res) {
+    
+    
+    const courseid=req.params.courseId;
+    
+    console.log(courseid);
+      const courses = await db('se_project.courses').where('id',courseid).del();
+     
+      
+    return res.status(200).json(courses);
+ 
+});
+
+app.post('/api/v1/addcourse', async function(req, res) {
+    
+    
+  const newcourse= {
+    
+    course: req.body.course,
+    code: req.body.code,
+    facultyId: req.body.facultyId,
+  };
+  console.log(newcourse);
+  try {
+    const course = await db('se_project.courses').insert(newcourse).returning('*');
+    return res.status(200).json(course);
+  }
+    
+   catch (e)
+    {
+      return res.status(400).send('Could not add course');
+  }
+
+});
+
+app.get('/api/v1/enrollment/:courseId', async function(req, res) { 
+  const courseid=req.params.courseId;
+    const courses = await db.select('*').from('se_project.enrollments').where('courseid',courseid).andWhere('grade','0')
+    .innerJoin('se_project.users', 'se_project.enrollments.userId', 'se_project.users.id');
+  return res.send(courses);
+
+});
 
 
+app.put('/api/v1/enrollment/:courseId', async function(req, res) { 
+  const userid=req.params.courseId;
+  const grade =req.body.garde;
+  const update = await db('se_project.enrollment').where('id',userid).update({grade:grade});
+  return res.send(update);
+
+});
 
   };

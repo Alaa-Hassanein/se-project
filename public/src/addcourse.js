@@ -1,26 +1,28 @@
 $(document).ready(function(){
-    // Handle Registration Button Click
+    
     $("#add").click(function() {
-      const id = $('#id').val();
+    
       const course = $('#name').val();
       const code = $('#code').val();
-      const facultyId = $("#facultyDropdown").attr('index');
+      const facultyId = $('#facultyid').val();
+console.log(facultyId);
+console.log(code);
 
       const data = {
-        id,
+        
         course,
         code,
         facultyId,
       };
 
-    /*  $.ajax({
+      $.ajax({
         type: "POST",
-        url: '/api/v1/addcoure',
+        url: '/api/v1/addcourse',
         data,
         success: function(serverResponse) {
           if(serverResponse) {
-            alert('Successfully Registered User');
-            location.href = '/logins';
+            alert('Successfully add courses');
+            location.href = '/manage/courses/';
           }
         },
         error: function(errorResponse) {
@@ -29,6 +31,6 @@ $(document).ready(function(){
           }            
         }
       });
-    */
+    
     });      
   });

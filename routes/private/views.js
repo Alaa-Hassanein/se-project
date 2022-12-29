@@ -62,7 +62,12 @@ module.exports = function(app) {
     
   });
 
-
+  app.get('/manage/grades/', async function(req, res) {
+    
+    const courses =await db.select('*').from('se_project.courses')
+    return res.render('manage-grades', { courses });
+  
+});
  
 
   // Register HTTP endpoint to render /enrollment page
@@ -71,7 +76,6 @@ module.exports = function(app) {
     const enrollment = await db.select('*')
     .from('se_project.enrollments')
     .where('userId', user.userId)
-    .innerJoin('se_project.users', 'se_project.enrollments.userId', 'se_project.users.id')
     .innerJoin('se_project.courses', 'se_project.enrollments.courseId', 'se_project.courses.id');
 
     return res.render('enrollment', { enrollment });
@@ -115,4 +119,6 @@ module.exports = function(app) {
     return res.render('manage-requests',{request});
   });
 
+
+  
 };

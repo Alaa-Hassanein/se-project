@@ -1,27 +1,70 @@
 $(document).ready(function(){
-  // Handle Autocomplete Selection Change
+
+  function buildTable(data){
+		document.getElementById('myTable').innerHTML = "";
+    
+    var table = document.getElementById('myTable');
+		for (var i = 0; i < data.length; i++){
+			var row = `<tr>
+							<td>${data[i].code}</td>
+							<td>${data[i].course}</td>
+							<td>${data[i].id}</td>
+              <td><button id=${data[i].id} name="update" type="button" value="${data[i].id}"  class="btn btn-primary update" >update</button></td>
+              <td><button id=${data[i].id} name="drop" type="button" value="${data[i].id}"  class="btn btn-primary drop"  >drop</button></td>
+					  </tr>`
+          
+			table.innerHTML += row
+
+
+		}
+	}
   $(".dropdown-menu li a").click(function(){
     const index = $(this).attr('index');
     $("#facultyDropdown").attr('index', index);
     $("#facultyDropdown").text($(this).text());
   });
-  // Handle Registration Button Click
+ 
   $("#submit").click(function() {
 
     console.log('alaa');
     
     const facultyId = $("#facultyDropdown").attr('index');
 
-    const data = {
-     
-      facultyId,
-    };
-
+   
     $.ajax({
-      type: "get",
-      url: '/manage/courses',
-      data,
-     
+      type: "post",
+      url: `/api/v1/faculties/`+`${facultyId}`,
+      
+      success:function(res){
+        courses= res
+      
+        buildTable(courses)
+        console.log('courses')
+        
+      }    
     });
-  });      
+  });  
+
+  
+      
 });
+
+$(document).ready(function(){
+  $(".drop").click(function() {
+
+    const corseid = $(this).attr("id");
+    
+   console.log(corseid);
+
+   
+    $.ajax({
+      type: "delete",
+      url: `/api/v1/courses/`+`${corseid}`,
+      
+      success:function(res){
+       alert(`course deleted ${res}`)
+        
+      }    
+    });
+  });  
+});  

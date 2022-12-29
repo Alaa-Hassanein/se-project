@@ -5,12 +5,12 @@ $(document).ready(function(){
 
       const x = $(this).attr("id");
 
-  console.log(x)
+
     
       const data = {
         response : "reject"
       };
-      console.log('/api/v1/transfers/'+x);
+      
       $.ajax({
         type: "POST",
         url: `/api/v1/transfers/`+`${x}`,
@@ -23,7 +23,7 @@ $(document).ready(function(){
         },
         error: function(errorResponse) {
           if(errorResponse) {
-            alert(`User login error: ${errorResponse.responseText}`);
+            
           }            
         }
       });

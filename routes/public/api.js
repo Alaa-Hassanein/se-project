@@ -144,7 +144,7 @@ module.exports = function(app) {
  try 
     {
       console.log(req.params.transferId);
-      //const updat =await knex("se_project.Transfer_requests").update('status','approved').where('id', req.params.id);
+      
       const updat = await db('se_project.Transfer_requests').where({id}).update({status:response});
       return res.status(200).json(updat);
     } 
@@ -160,6 +160,7 @@ module.exports = function(app) {
 
 
  
+
 
 
 
