@@ -21,7 +21,7 @@
         <nav class="navbar navbar-inverse" style="padding-left:130px;">
           <ul class="nav navbar-nav">
             <li class="active"><a href="/homepage-a">Home</a></li>
-            <li><a href="/users/add">Add Users</a></li>
+            
             <li><a href="manage/grades">manage grades</a></li>
             <li><a href="/manage-requests">manage requests</a></li>
             <li><a href="/manage/courses">Courses</a></li>
