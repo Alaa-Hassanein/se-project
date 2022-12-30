@@ -218,5 +218,13 @@ app.put('/api/v1/enrollment/:courseId', async function(req, res) {
   return res.status(200).json(update);
 
 });
+app.delete('/api/v1/courses/:courseId/drop', async function(req, res) { 
+  const courseId=req.params.courseId;
+  const user =await getUser(req);
+  const delet =await db('se_project.enrollments').where('userId',user.userId).andWhere('courseId',courseId).del();
+  return res.status(200).json(delet);
+
+});
+
 
   };

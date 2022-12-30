@@ -21,7 +21,8 @@
         <nav class="navbar navbar-inverse" style="padding-left:130px;">
           <ul class="nav navbar-nav">
             <li class="active"><a href="/homepage-s">Home</a></li>
-            <li><a href="/enrollment">Enrollment</a></li>
+            <li><a href="/transcript">Transcript</a></li>
+            <li><a href="/courses">courses</a></li>
             <li><a href="/transfer">Transfer</a></li>
 
             <li><a href="/">Logout</a></li>

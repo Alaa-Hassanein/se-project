@@ -60,7 +60,7 @@ module.exports = function(app) {
       console.log(userId);
       console.log(userId.id);
       let courseObj= coursesid[i]
-        enroll =await  db('se_project.enrollments').insert( { userId: userId.id , grade: 0 ,  courseid: courseObj.id , active:true} );
+        enroll =await  db('se_project.enrollments').insert( { userId: userId.id , grade: 0 ,  courseId: courseObj.id , active:true} );
     }
       return res.status(200).json(user);
     } catch (e) {

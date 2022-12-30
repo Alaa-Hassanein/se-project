@@ -11,7 +11,7 @@ $(document).ready(function(){
                               <td>${data[i].firstName}</td>
                               
                               <td><input type="number"  id="${data[i].userId}" name="${data[i].userId}" placeholder="grade" value=""></td>
-                              <td><buttom id=${data[i].userId} name="upload" type="buttom" value="${data[i].userId}"  class="btn btn-primary upload">upload</buttom></td>
+                              <td><button id=${data[i].userId} name="upload" type="button" value="${data[i].userId}"  class="btn btn-primary upload">upload</button></td>
                 
                
                         </tr>`
@@ -58,7 +58,7 @@ $(document).ready(function(){
       const courseId = $("#courseDropdown").attr('index');
       console.log(courseId);
       const grade = $(`#${userid}`).val();
-   
+      $(this).parent().parent().remove();
   
      const data = {
       grade,
@@ -70,7 +70,7 @@ $(document).ready(function(){
         url: `/api/v1/enrollment/`+`${courseId}`,
         data,
         success:function(res){
-         alert(`grade uploaded `)
+         
           
         }    
       });

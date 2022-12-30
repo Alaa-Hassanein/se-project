@@ -54,6 +54,13 @@ module.exports = function(app) {
     return res.render('users', { users });
   });
 
+  app.get('/courses', async function(req, res) {
+    const user = await getUser(req);
+    const courses = await db.select('*').from('se_project.enrollments').where('userId',user.userId)
+    .innerJoin('se_project.courses','se_project.enrollments.courseId','se_project.courses.id');
+    return res.render('courses', { courses });
+  });
+
   // Register HTTP endpoint to render /courses page
   app.get('/manage/courses/', async function(req, res) {
     

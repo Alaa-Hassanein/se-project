@@ -10,7 +10,7 @@ $(document).ready(function(){
 							<td>${data[i].course}</td>
 							<td>${data[i].id}</td>
               <td><button id=${data[i].id} name="update" type="button" value="${data[i].id}"  class="btn btn-primary update" >update</button></td>
-              <td><button id=${data[i].id} name="drop" type="submit" value="${data[i].id}"  class="btn btn-primary delete" >delete</button></td>
+              <td><button id=${data[i].id} name="drop" type="button" value="${data[i].id}"  class="btn btn-primary delete" >delete</button></td>
 					  </tr>`
           
 			table.innerHTML += row
@@ -48,7 +48,7 @@ $(document).ready(function(){
   $("#myTable").on("click", ".delete", function (event) {
  
     const corseid = $(this).attr("id");
-   
+    $(this).parent().parent().remove();
    console.log(corseid);
 
    
