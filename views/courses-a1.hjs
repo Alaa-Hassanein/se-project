@@ -67,11 +67,14 @@
 	    	<th scope="col6"></th>
           </tr >
           <tbody id="myTable"></tbody>
+          
         </thead>
       </table>
           </div>
       </div>
   </form>
     </div>
+
+   
   </body>
 </html>

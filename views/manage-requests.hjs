@@ -9,8 +9,6 @@
   </head>
   <body>
     <script src="/src/manage-requests.js" type="text/javascript">
-    {{!-- function myFunction() {
-  var x = document.getElementById("reject").name;} --}}
     </script>
     <div>
     <div>

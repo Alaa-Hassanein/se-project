@@ -209,10 +209,13 @@ app.get('/api/v1/enrollment/:courseId', async function(req, res) {
 
 
 app.put('/api/v1/enrollment/:courseId', async function(req, res) { 
-  const userid=req.params.courseId;
-  const grade =req.body.garde;
-  const update = await db('se_project.enrollment').where('id',userid).update({grade:grade});
-  return res.send(update);
+  const userid=req.body.userid;
+  const grade =req.body.grade;
+  const courseId=req.params.courseId
+  console.log('id'+userid);
+  console.log('grade'+grade);
+  const update = await db('se_project.enrollments').where('userId',userid).andWhere('courseid',courseId).update({grade:grade});
+  return res.status(200).json(update);
 
 });
 

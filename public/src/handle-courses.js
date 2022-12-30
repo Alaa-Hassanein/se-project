@@ -10,7 +10,7 @@ $(document).ready(function(){
 							<td>${data[i].course}</td>
 							<td>${data[i].id}</td>
               <td><button id=${data[i].id} name="update" type="button" value="${data[i].id}"  class="btn btn-primary update" >update</button></td>
-              <td><button id=${data[i].id} name="drop" type="button" value="${data[i].id}"  class="btn btn-primary drop"  >drop</button></td>
+              <td><button id=${data[i].id} name="drop" type="submit" value="${data[i].id}"  class="btn btn-primary delete" >delete</button></td>
 					  </tr>`
           
 			table.innerHTML += row
@@ -45,15 +45,10 @@ $(document).ready(function(){
     });
   });  
 
-  
-      
-});
-
-$(document).ready(function(){
-  $(".drop").click(function() {
-
+  $("#myTable").on("click", ".delete", function (event) {
+ 
     const corseid = $(this).attr("id");
-    
+   
    console.log(corseid);
 
    
@@ -66,5 +61,35 @@ $(document).ready(function(){
         
       }    
     });
+
+  
+  
   });  
-});  
+
+
+  $("#myTable").on("click", ".update", function () {
+ 
+    const corseid = $(this).attr("id");
+   
+   console.log(corseid);
+
+   
+    $.ajax({
+      type: "put",
+      url: `/api/v1/courses/`+`${corseid}`,
+      
+      success:function(res){
+       alert(`course deleted ${res}`)
+        
+      }    
+    });
+
+  
+  
+  });  
+      
+});
+
+
+ 
+ 

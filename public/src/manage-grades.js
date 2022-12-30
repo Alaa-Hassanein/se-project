@@ -1,4 +1,5 @@
 $(document).ready(function(){
+  var corseid;
 
     function buildTable(data){
           document.getElementById('myTable').innerHTML = "";
@@ -24,6 +25,7 @@ $(document).ready(function(){
       const index = $(this).attr('index');
       $("#courseDropdown").attr('index', index);
       $("#courseDropdown").text($(this).text());
+      
     });
    
     $("#submit").click(function() {
@@ -50,19 +52,25 @@ $(document).ready(function(){
  
   });
   $(document).ready(function(){
-    $(".upload").click(function() {
+    $("#myTable").on("click", ".upload", function (event) {
   
       const userid = $(this).attr("id");
+      const courseId = $("#courseDropdown").attr('index');
+      console.log(courseId);
       const grade = $(`#${userid}`).val();
    
-  console.log(grade);
-     
+  
+     const data = {
+      grade,
+      userid,
+     };
+
       $.ajax({
-        type: "delete",
-        url: `/api/v1/enrollment/`+`${userid}`,
-        
+        type: "put",
+        url: `/api/v1/enrollment/`+`${courseId}`,
+        data,
         success:function(res){
-         alert(`course deleted ${res}`)
+         alert(`grade uploaded `)
           
         }    
       });
