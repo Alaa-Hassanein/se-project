@@ -9,8 +9,8 @@ $(document).ready(function(){
 							<td>${data[i].code}</td>
 							<td>${data[i].course}</td>
 							<td>${data[i].id}</td>
-              <td><button id=${data[i].id} name="update" type="button" value="${data[i].id}"  class="btn btn-primary update" >update</button></td>
-              <td><button id=${data[i].id} name="drop" type="button" value="${data[i].id}"  class="btn btn-primary delete" >delete</button></td>
+              <td><a href="/manage/courses/${data[i].id}"><button type="button" class="btn btn-primary ">update</button></a></td>
+              <td><button id=${data[i].id} name="drop" type="button" value="${data[i].id}"  class="btn btn-danger delete" >delete</button></td>
 					  </tr>`
           
 			table.innerHTML += row
@@ -66,28 +66,27 @@ $(document).ready(function(){
   
   });  
 
-
-  $("#myTable").on("click", ".update", function () {
+/*
+ $("#myTable").on("click", ".update", function () {
  
-    const corseid = $(this).attr("id");
+    const corseId = $(this).attr("id");
    
-   console.log(corseid);
-
+   
+const data={
+  corseId
+};
    
     $.ajax({
-      type: "put",
-      url: `/api/v1/courses/`+`${corseid}`,
-      
-      success:function(res){
-       alert(`course deleted ${res}`)
-        
-      }    
-    });
+      type: "get",
+      url:'/manage/courses/edit',
+      data,
+         
+     });
 
   
   
-  });  
-      
+   });  
+    */  
 });
 
 

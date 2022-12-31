@@ -185,6 +185,7 @@ app.post('/api/v1/addcourse', async function(req, res) {
     course: req.body.course,
     code: req.body.code,
     facultyId: req.body.facultyId,
+    credithours:req.body.credithours,
   };
   console.log(newcourse);
   try {
@@ -221,10 +222,29 @@ app.put('/api/v1/enrollment/:courseId', async function(req, res) {
 app.delete('/api/v1/courses/:courseId/drop', async function(req, res) { 
   const courseId=req.params.courseId;
   const user =await getUser(req);
-  const delet =await db('se_project.enrollments').where('userId',user.userId).andWhere('courseId',courseId).del();
+  const delet =await db('se_project.enrollments').where('userId',user.userId).andWhere('courseid',courseId).del();
   return res.status(200).json(delet);
 
 });
 
+app.put('/api/v1/course/:courseId', async function(req, res) { 
+const newc={
+  course:req.body.course,
+  code:req.body.code,
+  credithours:req.body.credithours
 
-  };
+};
+  const courseId=req.params.courseId
+  
+  const update = await db('se_project.courses').where('id',courseId).update(newc);
+  return res.status(200).json(update);
+  });
+
+  app.get('/api/v1/GPA', async function(req, res) {
+    const user=await getUser(req); 
+    const gpa=await db.select('*').from('se_project.enrollments').where('userId',user.userId)
+    .innerJoin('se_project.courses' ,'se_project.enrollments.courseid' ,'se_project.courses.id');
+      return res.send(gpa);
+      });
+
+}

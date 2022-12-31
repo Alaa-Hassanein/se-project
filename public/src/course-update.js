@@ -1,33 +1,33 @@
 $(document).ready(function(){
     
-    $("#add").click(function() {
-    
+    $("#update").click(function() {
+    const courseId= $('#courseid').val();;
       const course = $('#name').val();
       const code = $('#code').val();
-      const facultyId = $('#facultyid').val();
+   
       const credithours=$('#creditHours').val();
 
       const data = {
         
         course,
         code,
-        facultyId,
+        
         credithours,
       };
 
       $.ajax({
-        type: "POST",
-        url: '/api/v1/addcourse',
+        type: "put",
+        url: `/api/v1/course/`+`${courseId}`,
         data,
         success: function(serverResponse) {
           if(serverResponse) {
-            alert('Successfully add courses');
+            alert('Successfully update courses');
             location.href = '/manage/courses/';
           }
         },
         error: function(errorResponse) {
           if(errorResponse) {
-            alert(`Error Register User: ${errorResponse.responseText}`);
+            alert(`Error update: ${errorResponse.responseText}`);
           }            
         }
       });

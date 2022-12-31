@@ -58,7 +58,7 @@
               <td>{{newFacultyId}}</td>
               <td>{{status}}</td>
               <td><button id={{id}} name="approve" type="buttom" value="{{id}}"  class="btn btn-primary approve" >approve</button></td>
-              <td><button id={{id}} name="reject" type="buttom" value="{{id}}"  class="btn btn-primary reject"  >reject</button></td>
+              <td><button id={{id}} name="reject" type="buttom" value="{{id}}"  class="btn btn-danger reject"  >reject</button></td>
             </tr>
           {{/request}}
         </thead>

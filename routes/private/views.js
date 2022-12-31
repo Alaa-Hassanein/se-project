@@ -57,7 +57,7 @@ module.exports = function(app) {
   app.get('/courses', async function(req, res) {
     const user = await getUser(req);
     const courses = await db.select('*').from('se_project.enrollments').where('userId',user.userId)
-    .innerJoin('se_project.courses','se_project.enrollments.courseId','se_project.courses.id');
+    .innerJoin('se_project.courses','se_project.enrollments.courseid','se_project.courses.id');
     return res.render('courses', { courses });
   });
 
@@ -75,19 +75,12 @@ module.exports = function(app) {
     return res.render('manage-grades', { courses });
   
 });
+
+
  
 
-  // Register HTTP endpoint to render /enrollment page
-  app.get('/enrollment', async function(req, res) {
-    const user = await getUser(req);
-    const enrollment = await db.select('*')
-    .from('se_project.enrollments')
-    .where('userId', user.userId)
-    .innerJoin('se_project.courses', 'se_project.enrollments.courseId', 'se_project.courses.id');
 
-    return res.render('enrollment', { enrollment });
-  });
-
+  
   app.get('/transfer', async function(req, res) {
     const user = await getUser(req);
     const faculties = await db.select('*').from('se_project.faculties');
@@ -126,6 +119,25 @@ module.exports = function(app) {
     return res.render('manage-requests',{request});
   });
 
+  app.get('/transcripts', async function(req, res) {
+    const user=await getUser(req);
+    const transcripts = await db.select('*').from('se_project.enrollments').where('userId',user.userId)
+    .innerJoin('se_project.courses','se_project.enrollments.courseid','se_project.courses.id');
+    return res.render('transcripts', { transcripts });
+  
+});
 
+
+app.get('/manage/courses/:edit', async function(req, res) {
+  const courseId=req.params.edit;
+ const course= await db.select('*').from('se_project.courses').where('id',courseId);
+ const facultyid=course[0];
+ const faculty=await db.select('*').from('se_project.faculties').where('id',facultyid.facultyId);
+
+ 
+
+  return res.render('course-update',{course, faculty});
+
+});
   
 };
