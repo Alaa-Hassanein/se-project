@@ -7,7 +7,7 @@ $(document).ready(function(){
     });
     $("#send-request").click(function() {
       console.log('hello');
-    
+      $(this).parent().parent().remove();
       const facultyId = $("#facultyDropdown").attr('index');
       const status ='pending';
 
