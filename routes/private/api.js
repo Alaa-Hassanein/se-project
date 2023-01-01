@@ -240,11 +240,6 @@ const newc={
   return res.status(200).json(update);
   });
 
-  app.get('/api/v1/GPA', async function(req, res) {
-    const user=await getUser(req); 
-    const gpa=await db.select('*').from('se_project.enrollments').where('userId',user.userId)
-    .innerJoin('se_project.courses' ,'se_project.enrollments.courseid' ,'se_project.courses.id');
-      return res.send(gpa);
-      });
+  
 
 }

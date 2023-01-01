@@ -2,6 +2,22 @@ const db = require('../../connectors/db');
 const roles = require('../../constants/roles');
 const { getSessionToken } = require('../../utils/session');
 
+function  calculateGPA(data)
+  {var upernum=0;
+    for(let i =0 ;i<data.length;i++)
+      {
+        x =data[i];
+        upernum=(x.grade*x.credithours)+upernum; 
+      }
+     var lowernum=0;
+     for(let i =0 ;i<data.length;i++)
+      {
+        x =data[i];
+        lowernum=x.credithours+lowernum; 
+      }
+      return (upernum/lowernum)
+    }
+
 const getUser = async function(req) {
   const sessionToken = getSessionToken(req);
   if (!sessionToken) {
@@ -120,10 +136,13 @@ module.exports = function(app) {
   });
 
   app.get('/transcripts', async function(req, res) {
-    const user=await getUser(req);
+    const user=await getUser(req); 
     const transcripts = await db.select('*').from('se_project.enrollments').where('userId',user.userId)
     .innerJoin('se_project.courses','se_project.enrollments.courseid','se_project.courses.id');
-    return res.render('transcripts', { transcripts });
+
+    const GPA=calculateGPA(transcripts);
+ 
+    return res.render('transcripts', { transcripts ,GPA });
   
 });
 
@@ -134,7 +153,6 @@ app.get('/manage/courses/:edit', async function(req, res) {
  const facultyid=course[0];
  const faculty=await db.select('*').from('se_project.faculties').where('id',facultyid.facultyId);
 
- 
 
   return res.render('course-update',{course, faculty});
 

@@ -50,9 +50,14 @@
           {{/transcripts}}
         </thead>
       </table>
+      <div style="padding-left: 420px">
+     
+      </div>
           <div style="padding-left: 420px">
-            
-            <input id="GPA"  type="button" class="btn btn-primary" value="GPA">
+             <h1>{{#GPA}}
+        GPA : {{GPA}}
+        {{/GPA}}
+             </h1>
           </div>
     </div>
   </body>
