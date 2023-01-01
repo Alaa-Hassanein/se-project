@@ -12,7 +12,7 @@ $(document).ready(function(){
       const email = $('#email').val();
       const password = $('#password').val();
       const facultyId = $("#facultyDropdown").attr('index');
-      const roleId = 1 ;
+      const roleId = 2 ;
       const data = {
         firstName,
         lastName,

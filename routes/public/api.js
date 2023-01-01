@@ -30,7 +30,7 @@ module.exports = function(app) {
     return user;  
   }
 
-  // Register HTTP endpoint to create new user
+  // Register HTTP endpoint to create new user as a student
   app.post('/api/v1/user', async function(req, res) {
     // Check if user already exists in the system
     const userExists = await db.select('*').from('se_project.users').where('email', req.body.email);
@@ -44,10 +44,18 @@ module.exports = function(app) {
       email: req.body.email,
       password: req.body.password,
       facultyId: req.body.facultyId,
-      roleId: roles.student,
+      roleId: req.body.roleId,
     };
   
+  if(!newUser.firstName || !newUser.lastName || !newUser.email||!newUser.password||!newUser.facultyId)
+  {
+    return res.status(400).send('fill all data');
+  }
+  else
+  {
+
   
+    
     try {
       var enroll;  
       const coursesid=await db.select('id').from('se_project.courses');
@@ -57,8 +65,7 @@ module.exports = function(app) {
     {
       
       const userId= user[0];
-      console.log(userId);
-      console.log(userId.id);
+   
       let courseObj= coursesid[i]
         enroll =await  db('se_project.enrollments').insert( { userId: userId.id , grade: 0 ,  courseid: courseObj.id , active:true} );
     }
@@ -67,8 +74,8 @@ module.exports = function(app) {
       console.log(e.message);
       return res.status(400).send('Could not register user');
     }
-  });
-
+}});
+ 
   // Register HTTP endpoint to create new user
   app.post('/api/v1/user/login', async function(req, res) {
     // get users credentials from the JSON body

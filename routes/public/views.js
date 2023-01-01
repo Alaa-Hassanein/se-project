@@ -10,8 +10,12 @@ module.exports = function(app) {
 
   
 
-  app.get('/register', async function(req, res) {
+  app.get('/register-s', async function(req, res) {
     const faculties = await db.select('*').from('se_project.faculties');
     return res.render('register', { faculties });
+  });
+  app.get('/register-a', async function(req, res) {
+    const faculties = await db.select('*').from('se_project.faculties');
+    return res.render('register-a', { faculties });
   });
 };
