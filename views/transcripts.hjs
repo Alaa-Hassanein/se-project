@@ -54,9 +54,9 @@
      
       </div>
           <div style="padding-left: 420px">
-             <h1>{{#GPA}}
+             <h1>
         GPA : {{GPA}}
-        {{/GPA}}
+        
              </h1>
           </div>
     </div>
