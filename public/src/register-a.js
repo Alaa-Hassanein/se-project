@@ -24,7 +24,7 @@ $(document).ready(function(){
 
       $.ajax({
         type: "POST",
-        url: '/api/v1/user',
+        url: '/api/v1/admin',
         data,
         success: function(serverResponse) {
           if(serverResponse) {

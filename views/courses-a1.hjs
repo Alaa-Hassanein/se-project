@@ -23,11 +23,10 @@
       
   </nav>
     </div>
-<div class="form-group">
+<div class="form-group" >
           <div >
-              <a href="/addcourse">
-            <button class="btn btn-primary ">add course</button>
-        </a>
+            <a href="/addcourse"> <button class="btn btn-primary ">add course</button> </a>
+          </div>
     <div class="center">
       
       <h1>manage courses</h1>
@@ -54,7 +53,10 @@
       </div>
       <div class="form-group">
           <div class="col-sm-10 col-sm-offset-2">
+            
+            
               <input id="submit" name="submit" type="bottom" value="submit" class="btn btn-primary submit">
+                 
 
                <table class="table">
         <thead>
@@ -71,6 +73,7 @@
         </thead>
       </table>
           </div>
+      
       </div>
   </form>
     </div>
