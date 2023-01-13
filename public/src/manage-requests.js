@@ -5,9 +5,10 @@ $(document).ready(function(){
 
       const x = $(this).attr("id");
 
+  
 
-    
       const data = {
+      
         response : "reject"
       };
       

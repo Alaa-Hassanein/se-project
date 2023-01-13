@@ -14,8 +14,14 @@ function  calculateGPA(data)
       {
         x =data[i];
         lowernum=x.credithours+lowernum; 
+      }if(lowernum==0)
+      {
+        var g ="";
+      }else
+      {
+       g=upernum/lowernum
       }
-      return (upernum/lowernum)
+      return (g)
     }
 
 const getUser = async function(req) {
@@ -137,7 +143,7 @@ module.exports = function(app) {
 
   app.get('/transcripts', async function(req, res) {
     const user=await getUser(req); 
-    const transcripts = await db.select('*').from('se_project.enrollments').where('userId',user.userId)
+    const transcripts = await db.select('*').from('se_project.enrollments').where('userId',user.userId).andWhere('grade',"!=",0)
     .innerJoin('se_project.courses','se_project.enrollments.courseid','se_project.courses.id');
 
     const GPA=calculateGPA(transcripts);

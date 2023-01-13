@@ -58,14 +58,11 @@ module.exports = function(app) {
     
     try {
       var enroll;  
-      const coursesid=await db.select('id').from('se_project.courses');
-      const user = await db('se_project.users').insert(newUser).returning('*');
-    
+      const coursesid=await db.select('id').from('se_project.courses').where('facultyId',req.body.facultyId);
+     // const user = await db('se_project.users').insert(newUser).returning('*');
       for(let i = 0; i< coursesid.length;i++)
     {
-      
       const userId= user[0];
-   
       let courseObj= coursesid[i]
         enroll =await  db('se_project.enrollments').insert( { userId: userId.id , grade: 0 ,  courseid: courseObj.id , active:true} );
     }
@@ -121,6 +118,44 @@ module.exports = function(app) {
       return res.status(400).send('Could not register user');
     }
   });
+
+
+  app.post('/api/v1/admin', async function(req, res) {
+    // Check if user already exists in the system
+    const userExists = await db.select('*').from('se_project.users').where('email', req.body.email);
+    if (!isEmpty(userExists)) {
+      return res.status(400).send('user exists');
+    }
+    
+    const newUser = {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      password: req.body.password,
+      facultyId: req.body.facultyId,
+      roleId: req.body.roleId,
+    };
+  
+  if(!newUser.firstName || !newUser.lastName || !newUser.email||!newUser.password||!newUser.facultyId)
+  {
+    return res.status(400).send('fill all data');
+  }
+  else
+  {
+
+  
+    
+    try {
+      
+      const user = await db('se_project.users').insert(newUser).returning('*');
+    
+     
+      return res.status(200).json(user);
+    } catch (e) {
+      console.log(e.message);
+      return res.status(400).send('Could not register user');
+    }
+}});
 
 
 };

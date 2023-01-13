@@ -79,7 +79,7 @@ else
   
        console.log(req.params.transferId);
        const updat = await db('se_project.Transfer_requests').where("id",id).update({status:response});
-       //const updat =await knex("se_project.Transfer_requests").update('status','rejected').where('id', req.params.id);
+     
        return res.status(200).json(updat);
      } 
      catch (e)
@@ -91,16 +91,33 @@ else
     }
     if(response=="approve")
     {
+
+ 
+      
    try 
       {
-        console.log(req.params.transferId);
-        //const updat =await knex("se_project.Transfer_requests").update('status','approved').where('id', req.params.id);
         const updat = await db('se_project.Transfer_requests').where({id}).update({status:response});
-        return res.status(200).json(updat);
+        const req =await db.select('*').from('se_project.Transfer_requests').where("id",id);
+        
+        let faculty= req[0];
+        const userId= faculty.userId;
+        const enrolld= await db('se_project.enrollments').where('userId',userId).del();
+        var enroll;  
+        const coursesid=await db.select('id').from('se_project.courses').where('facultyId',faculty.newFacultyId);
+        const updatef = await db('se_project.users').where("id",userId).update({facultyId:faculty.newFacultyId});
+        for(let i = 0; i< coursesid.length;i++)
+      {
+        
+        let courseObj= coursesid[i]
+          enroll =await  db('se_project.enrollments').insert( { userId: userId , grade: 0 ,  courseid: courseObj.id , active:true} );
+      }
+  
+       
+        return res.status(200).json(updat , enrolld);
       } 
       catch (e)
      {
-      console.log(req.params.transferId);
+     
         console.log(e.message);
         return res.status(400).send('Could not assend  request');
       }
@@ -171,6 +188,7 @@ else
     
     console.log(courseid);
       const courses = await db('se_project.courses').where('id',courseid).del();
+      const dd = await db('se_project.enrollments').where('courseid',courseid).del();
      
       
     return res.status(200).json(courses);

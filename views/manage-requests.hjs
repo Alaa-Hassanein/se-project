@@ -48,6 +48,7 @@
             <th scope="col4">status</th>
 	    	<th scope="col5">approve</th>
 	    	<th scope="col6">reject</th>
+      
           </tr>
           {{#request}}
 
@@ -57,8 +58,10 @@
               <td>{{currentFacultyId}}</td>
               <td>{{newFacultyId}}</td>
               <td>{{status}}</td>
+
               <td><button id={{id}} name="approve" type="buttom" value="{{id}}"  class="btn btn-primary approve" >approve</button></td>
               <td><button id={{id}} name="reject" type="buttom" value="{{id}}"  class="btn btn-danger reject"  >reject</button></td>
+       
             </tr>
           {{/request}}
         </thead>
